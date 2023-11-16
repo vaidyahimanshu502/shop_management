@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <style>
         .form-container {
-            border: 3px solid gray;
-            border-radius: 12px;
+            /* border: 3px solid gray;
+            border-radius: 12px; */
         }
 
         .search-btn {
@@ -33,7 +33,6 @@
                  Date wise purchase report
                </h1>
             </div>
-            <hr>
             <hr>
 
             <h3 class="text-center textprimary">Filter by date</h3>
@@ -88,13 +87,15 @@
 
                         // Define the appropriate SQL query based on whether the search button is clicked
                         $sql = $searchClicked
-                            ? "SELECT p.id, p.invoice_no, p.invoice_date, p.total_amount, s.supplier_name
-                               FROM purchase p
-                               INNER JOIN supplier s ON p.supplier_id = s.id
-                               WHERE p.invoice_date BETWEEN '$start_date' AND '$end_date'"
-                            : "SELECT p.id, p.invoice_no, p.invoice_date, p.total_amount, s.supplier_name
-                               FROM purchase p
-                               INNER JOIN supplier s ON p.supplier_id = s.id";
+                                ? "SELECT p.id, p.invoice_no, p.invoice_date, p.total_amount, s.supplier_name
+                                FROM purchase p
+                                INNER JOIN supplier s ON p.supplier_id = s.id
+                                WHERE p.invoice_date BETWEEN '$start_date' AND '$end_date'
+                                ORDER BY p.invoice_date DESC"
+                                : "SELECT p.id, p.invoice_no, p.invoice_date, p.total_amount, s.supplier_name
+                                FROM purchase p
+                                INNER JOIN supplier s ON p.supplier_id = s.id
+                                ORDER BY p.invoice_date DESC";
 
                         $result = $conn->query($sql);
 
@@ -109,10 +110,10 @@
                                 // Output each row inside the loop
                                 echo "<tr>";
                                 echo "<td>" . $counter . "</td>";
-                                echo "<td><input type='text' class='form-control' value='" . $invoiceNo . "' readonly></td>";
-                                echo "<td><input type='text' class='form-control' value='" . $invoiceDate . "' readonly></td>";
-                                echo "<td><input type='text' class='form-control' value='" . $supplierName . "' readonly></td>";
-                                echo "<td><input type='text' class='form-control' value='" . $amount . "' readonly></td>";
+                                echo "<td> ". $invoiceNo . "</td>";
+                                echo "<td>" . $invoiceDate . "</td>";
+                                echo "<td>" . $supplierName . "</td>";
+                                echo "<td>" . $amount . "</td>";
                                 echo "<td><a href='./views/detailedPurchaseReport.php?id=" . $pId . "' class='btn btn-primary btn-sm'>View</a></td>";
                                 echo "</tr>";
 

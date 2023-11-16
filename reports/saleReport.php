@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <style>
         .form-container {
-            border: 3px solid gray;
-            border-radius: 12px;
+            /* border: 3px solid gray;
+            border-radius: 12px; */
         }
 
         .search-btn {
@@ -34,7 +34,6 @@
                         Date wise sale report
                     </h1>
                 </div>
-                <hr>
                 <hr>
 
                 <h3 class="text-center textprimary">Filter by date</h3>
@@ -90,10 +89,13 @@
                             // Define the appropriate SQL query based on whether the search button is clicked
                             $sql = $searchClicked
                                 ? "SELECT id, invoice_no, invoice_date, total_amount, customer_name
-                                   FROM sale
-                                   WHERE invoice_date BETWEEN '$start_date' AND '$end_date'"
+                                FROM sale
+                                WHERE invoice_date BETWEEN '$start_date' AND '$end_date'
+                                ORDER BY invoice_date DESC"
                                 : "SELECT id, invoice_no, invoice_date, total_amount, customer_name
-                                   FROM sale";
+                                FROM sale
+                                ORDER BY invoice_date DESC";
+
 
                             $result = $conn->query($sql);
 
@@ -108,10 +110,10 @@
                                     // Output each row inside the loop
                                     echo "<tr>";
                                     echo "<td>" . $counter . "</td>";
-                                    echo "<td><input type='text' class='form-control' value='" . $invoiceNo . "' readonly></td>";
-                                    echo "<td><input type='text' class='form-control' value='" . $invoiceDate . "' readonly></td>";
-                                    echo "<td><input type='text' class='form-control' value='" . $customerName . "' readonly></td>";
-                                    echo "<td><input type='text' class='form-control' value='" . $amount . "' readonly></td>";
+                                    echo "<td>" . $invoiceNo . "</td>";
+                                    echo "<td>" . $invoiceDate . "</td>";
+                                    echo "<td>" . $customerName . "</td>";
+                                    echo "<td>" . $amount . "</td>";
                                     echo "<td><a href='./views/detailedSaleReport.php?id=" . $saleId . "' class='btn btn-primary btn-sm'>View</a></td>";
                                     echo "</tr>";
 

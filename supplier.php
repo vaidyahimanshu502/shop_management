@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-md-12">
                   <table class="table m-3">
-                  <a href="php_actions/createSupplier.php" class="btn btn-primary m-1">Add-Supplier</a>
+                  <a href="php_actions/createSupplier.php" class="btn btn-outline-primary m-1">Add-Supplier</a>
                      <thead>
                         <tr>
                            <th scope="col">S.no.</th>

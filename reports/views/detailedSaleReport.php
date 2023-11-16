@@ -46,10 +46,10 @@
     </style>
 </head>
 <body>
+    <?php include("../../partials/header.php"); ?>
 <?php
 // Replace with your actual database connection details
 include("../../config/db_connect.php");
-include("../../partials/header.php");
 
 // Check connection
 if ($conn->connect_error) {
