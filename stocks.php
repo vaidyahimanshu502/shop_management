@@ -9,7 +9,7 @@ $stockData = array();
 if (isset($_GET['search'])) {
     $searchTerm = mysqli_real_escape_string($conn, $_GET['search']);
 
-    // Modify the SQL query to include the search condition
+    // included search query
     $sqlStockData = "
         SELECT
             i.id AS item_id,
@@ -102,10 +102,11 @@ if ($resultStockData) {
 <body>
     <?php include("./partials/header.php") ?>
     <div class="container my-2">
-        <h1 class="text-center text-secondary">Stock Report</h1>
+        <h1 class="text-center text-secondary display-3">Stock Report</h1>
 
         <!-- Search form -->
         <form class="mb-3" method="GET" action="">
+            <h4 class="text-left text-secondary">Search Stock By Item Name</h4>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search by Item Name" name="search">
                 <button class="btn btn-outline-secondary" type="submit">Search</button>

@@ -9,7 +9,7 @@
 <body>
    <?php include("./partials/header.php") ?>
 
-   <h1 class="text-center text-primary m-2">Supplier's List</h1>
+   <h1 class="text-center text-secondary display-3">Supplier's List</h1>
 
    <div class="container mx-auto m-5">
         <div class="row">

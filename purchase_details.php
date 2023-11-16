@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container mx-auto m-5">
       <div class="row">
         <div class="col-md-12">
-           <h1 class="text-center text-primary mb-3">Purchase Items</h1>
+           <h1 class="text-center text-secondary display-3 mb-3">Purchase Items</h1>
            <form action="" method="POST">
              <table class="table">
                <h3 class="text-center text-secondary">Supplier's Details</h3>

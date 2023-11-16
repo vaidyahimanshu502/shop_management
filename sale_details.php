@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="container mx-auto m-5">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="text-center text-primary mb-3">Sale Items</h1>
+                <h1 class="text-center text-secondary display-3 mb-3">Sale Items</h1>
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                     <table class="table">
                         <h3 class="text-center text-secondary">Customer's Details</h3>

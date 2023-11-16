@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-md-12">
                 <table class="table">
-                    <h1 class="text-center text-primary mb-3">Sale Records</h1>
+                <h1 class="text-center text-secondary display-3">Sale Records</h1>
                     <thead>
                         <tr>
                             <th scope="row">S. No</th>

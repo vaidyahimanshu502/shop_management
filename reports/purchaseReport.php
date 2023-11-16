@@ -29,8 +29,8 @@
     <div class="row">
         <div class="col-md-12">
             <div class="header">
-               <h1 class="text-center text-secondary">
-                 --:: Date wise purchase report ::--
+               <h1 class="text-center text-secondary display-3">
+                 Date wise purchase report
                </h1>
             </div>
             <hr>

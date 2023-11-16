@@ -13,7 +13,7 @@
     <div class="container mx-auto m-5">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="text-center text-primary">Purchase Records</h1>
+            <h1 class="text-center text-secondary display-3">Purchase Records</h1>
                 <table class="table">
                     <thead>
                         <tr>
