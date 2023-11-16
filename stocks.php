@@ -5,34 +5,70 @@ include('config/db_connect.php');
 // Reset $stockData array
 $stockData = array();
 
-// Fetch data from items table
-$sqlStockData = "
-    SELECT
-        i.id AS item_id,
-        i.item_name,
-        COALESCE(purchase.quantity, 0) AS purchase_quantity,
-        COALESCE(sale.quantity, 0) AS sale_quantity
-    FROM
-        items i
-    LEFT JOIN (
+// Check if a search query is submitted
+if (isset($_GET['search'])) {
+    $searchTerm = mysqli_real_escape_string($conn, $_GET['search']);
+
+    // Modify the SQL query to include the search condition
+    $sqlStockData = "
         SELECT
-            item_id,
-            COALESCE(SUM(quantity), 0) AS quantity
+            i.id AS item_id,
+            i.item_name,
+            COALESCE(purchase.quantity, 0) AS purchase_quantity,
+            COALESCE(sale.quantity, 0) AS sale_quantity
         FROM
-            purchase_details
-        GROUP BY
-            item_id
-    ) purchase ON i.id = purchase.item_id
-    LEFT JOIN (
+            items i
+        LEFT JOIN (
+            SELECT
+                item_id,
+                COALESCE(SUM(quantity), 0) AS quantity
+            FROM
+                purchase_details
+            GROUP BY
+                item_id
+        ) purchase ON i.id = purchase.item_id
+        LEFT JOIN (
+            SELECT
+                item_id,
+                COALESCE(SUM(qty), 0) AS quantity
+            FROM
+                sale_details
+            GROUP BY
+                item_id
+        ) sale ON i.id = sale.item_id
+        WHERE i.item_name LIKE '%$searchTerm%'
+        ORDER BY i.item_name ASC
+    ";
+} else {
+    // Fetch data from items table
+    $sqlStockData = "
         SELECT
-            item_id,
-            COALESCE(SUM(qty), 0) AS quantity
+            i.id AS item_id,
+            i.item_name,
+            COALESCE(purchase.quantity, 0) AS purchase_quantity,
+            COALESCE(sale.quantity, 0) AS sale_quantity
         FROM
-            sale_details
-        GROUP BY
-            item_id
-    ) sale ON i.id = sale.item_id
-";
+            items i
+        LEFT JOIN (
+            SELECT
+                item_id,
+                COALESCE(SUM(quantity), 0) AS quantity
+            FROM
+                purchase_details
+            GROUP BY
+                item_id
+        ) purchase ON i.id = purchase.item_id
+        LEFT JOIN (
+            SELECT
+                item_id,
+                COALESCE(SUM(qty), 0) AS quantity
+            FROM
+                sale_details
+            GROUP BY
+                item_id
+        ) sale ON i.id = sale.item_id
+    ";
+}
 
 $resultStockData = $conn->query($sqlStockData);
 
@@ -57,18 +93,25 @@ if ($resultStockData) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock Report</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
-
 <body>
-<?php include("./partials/header.php") ?>
+    <?php include("./partials/header.php") ?>
     <div class="container my-2">
         <h1 class="text-center text-secondary">Stock Report</h1>
+
+        <!-- Search form -->
+        <form class="mb-3" method="GET" action="">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search by Item Name" name="search">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </form>
+
         <table class="table">
             <thead>
                 <tr>
@@ -90,7 +133,7 @@ if ($resultStockData) {
                     echo '<td>' . $item_name . '</td>';
                     echo '<td>' . $purchase_quantity . '</td>';
                     echo '<td>' . $sale_quantity . '</td>';
-                    
+
                     // Calculate and display the stock difference
                     $stockDifference = $purchase_quantity - $sale_quantity;
                     echo '<td>' . $stockDifference . '</td>';
@@ -104,5 +147,4 @@ if ($resultStockData) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

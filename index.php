@@ -10,7 +10,7 @@
 <?php include("./partials/header.php") ?>
    <div class="container">
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
           <h1 class="text-center text-primary m-2">List of Items</h1>
           <a href="php_actions/createItem.php" class="btn btn-primary m-1">Create Item</a>
           <table class="table m-3">
